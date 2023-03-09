@@ -50,18 +50,18 @@ public class AuthorizationServerConfig {
                 .clientId("api-client")
                 .clientSecret(passwordEncoder.encode("secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.JWT_BEARER)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
-                .authorizationGrantType(AuthorizationGrantType.PASSWORD)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/api-client-oidc")
-                .redirectUri("http://127.0.0.1:8080/authorized")
+                .redirectUri("http://127.0.0.1:9001/login/oauth2/code/api-client-oidc")
+                .redirectUri("http://127.0.0.1:9001/authorized")
                 .scope(OidcScopes.OPENID)
                 .scope("api.read")
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 
-
         return new InMemoryRegisteredClientRepository(registeredClient);
+//        http://localhost:9000/oauth2/authorize?response_type=code&scope=api.read&client_id=api-client&redirect_uri=http://127.0.0.1:9001/login/oauth2/code/articles-client-oidc
     }
 
     @Bean
@@ -96,7 +96,7 @@ public class AuthorizationServerConfig {
     @Bean
     public ProviderSettings providerSettings() {
         return ProviderSettings.builder()
-                .issuer("http://auth-server:9000")
+                .issuer("http://localhost:9000")
                 .build();
     }
 }

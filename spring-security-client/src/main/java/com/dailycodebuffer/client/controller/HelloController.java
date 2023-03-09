@@ -20,13 +20,13 @@ public class HelloController {
 
     @GetMapping("/api/hello")
     public String hello(Principal principal) {
-        return "Hello " +principal.getName()+", Welcome to Daily Code Buffer!!";
+        return "Hello " + principal.getName() + ", Welcome to Daily Code Buffer!!";
     }
 
     @GetMapping("/api/users")
     public String[] users(
             @RegisteredOAuth2AuthorizedClient("api-client-authorization-code")
-                    OAuth2AuthorizedClient client){
+                    OAuth2AuthorizedClient client) {
         return this.webClient
                 .get()
                 .uri("http://127.0.0.1:8090/api/users")
